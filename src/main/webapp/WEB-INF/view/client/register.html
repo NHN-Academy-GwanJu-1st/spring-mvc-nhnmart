@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Client Register Page</h1>
+
+    <form method="post" action="/client/register" enctype="multipart/form-data">
+        <div style="display: flex; flex-direction: column; width: 1000px">
+            <input type="hidden" name="accountId" th:value="${session.client}">
+            <input type="text" name="title" placeholder="Input title">
+            <select name="category">
+                <option th:each="category : ${categories}" th:value="${category}" th:text="${category.getValue()}"></option>
+            </select>
+            <textarea cols="10" rows="30" name="content"></textarea>
+
+            <input type="file" name="uploadFiles" multiple="multiple">
+
+            <div style="display: flex; align-items: center">
+                <a href="/client">취소</a>
+                <button type="submit">등록</button>
+            </div>
+        </div>
+    </form>
+<!-- 파일 업로드 영역 -->
+
+
+
+</body>
+</html>

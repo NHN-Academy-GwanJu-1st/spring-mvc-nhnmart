@@ -4,6 +4,8 @@ import com.nhnacademy.springmvc.Base;
 import com.nhnacademy.springmvc.domain.Role;
 import com.nhnacademy.springmvc.repository.AccountRepository;
 import com.nhnacademy.springmvc.repository.AccountRepositoryImpl;
+import com.nhnacademy.springmvc.repository.PostRepository;
+import com.nhnacademy.springmvc.repository.PostRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,12 @@ public class RootConfig {
         accountRepository.addAccount("client", "1234", "client", Role.Client);
         accountRepository.addAccount("admin", "1234", "admin", Role.Admin);
         return accountRepository;
+    }
+
+    @Bean
+    public PostRepository postRepository() {
+        PostRepository postRepository = new PostRepositoryImpl();
+        return postRepository;
     }
 
 }

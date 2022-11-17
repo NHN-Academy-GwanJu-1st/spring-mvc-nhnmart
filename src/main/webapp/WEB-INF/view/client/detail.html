@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div style="display: flex; flex-direction: column; width: 1000px">
+    <input type="hidden" name="accountId" th:value="${post.accountId}" readonly>
+    <input type="text" name="title" th:value="${post.title}" readonly>
+    <input type="text" name="category" th:value="${post.category.value}" readonly>
+    <textarea cols="10" rows="30" name="content" th:text="${post.content}" readonly></textarea>
+
+    <br>
+
+    <th:block th:each="files : ${post.fileList}">
+        <div style="display: flex; align-items: center">
+            <p th:text="${files}"></p>
+            <a th:href="${'/download?filename=' + files}">[다운로드]</a>
+        </div>
+    </th:block>
+
+    <a href="/client">목록 페이지</a>
+</div>
+
+</body>
+</html>
