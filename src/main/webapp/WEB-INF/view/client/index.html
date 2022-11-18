@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        .answerStatus_isTrue{
+            color: blue;
+        }
+        .answerStatus_isFals{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -45,7 +54,13 @@
                     </td>
                     <td th:text="${post.category.value}"></td>
                     <td th:text="${post.registerDate}"></td>
-                    <td th:text="${post.answerStatus} ? '답변 완료' : '답변 대기중'"></td>
+
+                    <th:block th:if="${post.answerStatus}">
+                        <td class="answerStatus_isTrue">답변 완료</td>
+                    </th:block>
+                    <th:block th:unless="${post.answerStatus}">
+                        <td class="answerStatus_isFals">답변 대기중</td>
+                    </th:block>
                 </tr>
             </th:block>
         </tbody>

@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,7 +57,7 @@ public class PostRegisterController {
 
         List<String> fileList = new ArrayList<>();
 
-        if (!validFileCheck(uploadFiles)) {
+        if (!fileEmptyCheck(uploadFiles)) {
             fileUpload(uploadFiles, fileList);
         }
 
@@ -71,7 +72,21 @@ public class PostRegisterController {
         return "redirect:/client";
     }
 
+    private boolean fileEmptyCheck(MultipartFile[] uploadFiles) {
+        boolean isEmpty = false;
+
+        for (MultipartFile file : uploadFiles) {
+            if (file.isEmpty()) {
+                isEmpty = true;
+            }
+        }
+        return isEmpty;
+    }
+
     private void fileUpload(MultipartFile[] uploadFiles, List<String> fileList) throws IOException {
+
+        fileTypeCheck(uploadFiles);
+
         for (MultipartFile file : uploadFiles) {
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             fileList.add(fileName);
@@ -79,21 +94,11 @@ public class PostRegisterController {
         }
     }
 
-    private boolean validFileCheck(MultipartFile[] uploadFiles) {
-        boolean fileEmptyCheck = false;
+    private void fileTypeCheck(MultipartFile[] uploadFiles) {
         for (MultipartFile file : uploadFiles) {
-            if (file.isEmpty()) {
-                fileEmptyCheck = true;
+            if (!acceptableFileType.contains(file.getContentType())) {
+                throw new NotAcceptableFileTypeException();
             }
-
-            fileTypeCheck(file);
-        }
-        return fileEmptyCheck;
-    }
-
-    private void fileTypeCheck(MultipartFile file) {
-        if (!acceptableFileType.contains(file.getContentType())) {
-            throw new NotAcceptableFileTypeException();
         }
     }
 
