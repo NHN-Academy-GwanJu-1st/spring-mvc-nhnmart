@@ -41,8 +41,8 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ClientCheckInterceptor()).addPathPatterns("/client", "/client/*");
-        registry.addInterceptor(new AdminCheckInterceptor()).addPathPatterns("/admin", "/admin/*");
+        registry.addInterceptor(new ClientCheckInterceptor()).addPathPatterns("/client", "/client/**");
+        registry.addInterceptor(new AdminCheckInterceptor()).addPathPatterns("/admin", "/admin/**");
     }
 
     @Bean

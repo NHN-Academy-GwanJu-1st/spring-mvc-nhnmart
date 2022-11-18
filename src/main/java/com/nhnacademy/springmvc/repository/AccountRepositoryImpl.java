@@ -12,7 +12,6 @@ public class AccountRepositoryImpl implements AccountRepository {
     private final Map<String, Account> customerMap = new HashMap<>();
 
     @Override
-
     public boolean exists(String id) {
         return customerMap.containsKey(id);
     }
@@ -31,9 +30,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Account addAccount(String id, String password, String name, Role role) {
-
         Account account = new Account(id, password, name, role);
-
         customerMap.put(id, account);
 
         return account;

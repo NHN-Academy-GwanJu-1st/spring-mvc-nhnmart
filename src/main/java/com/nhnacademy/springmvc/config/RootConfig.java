@@ -2,10 +2,7 @@ package com.nhnacademy.springmvc.config;
 
 import com.nhnacademy.springmvc.Base;
 import com.nhnacademy.springmvc.domain.Role;
-import com.nhnacademy.springmvc.repository.AccountRepository;
-import com.nhnacademy.springmvc.repository.AccountRepositoryImpl;
-import com.nhnacademy.springmvc.repository.PostRepository;
-import com.nhnacademy.springmvc.repository.PostRepositoryImpl;
+import com.nhnacademy.springmvc.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +25,12 @@ public class RootConfig {
     public PostRepository postRepository() {
         PostRepository postRepository = new PostRepositoryImpl();
         return postRepository;
+    }
+
+    @Bean
+    public AnswerRepository answerRepository() {
+        AnswerRepository answerRepository = new AnswerRepositoryImpl();
+        return answerRepository;
     }
 
 }

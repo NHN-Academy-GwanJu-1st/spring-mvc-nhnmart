@@ -15,19 +15,19 @@
             <select name="category">
                 <option th:each="category : ${categories}" th:value="${category}" th:text="${category.getValue()}"></option>
             </select>
-            <textarea cols="10" rows="30" name="content"></textarea>
+            <textarea cols="10" rows="30" name="content" style="resize: none"></textarea>
+
+            <br>
 
             <input type="file" name="uploadFiles" multiple="multiple">
 
-            <div style="display: flex; align-items: center">
+            <br>
+
+            <div style="display: flex; align-items: center; justify-content: end">
                 <a href="/client">취소</a>
-                <button type="submit">등록</button>
+                <button type="submit" style="margin-left: 20px">등록</button>
             </div>
         </div>
     </form>
-<!-- 파일 업로드 영역 -->
-
-
-
 </body>
 </html>

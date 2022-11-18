@@ -24,24 +24,20 @@
 
     <br>
 
-    <th:block th:if="${post.answer != null}">
-        <h3>답변</h3>
-        <p style="font-size: 14px">
-            담당자 : <span th:text="${post.answer.adminId}" style="margin-right: 10px"></span>
-            시간 : <span th:text="${post.answer.answerDate}"></span>
-        </p>
-        <textarea readonly cols="10" rows="10" style="resize: none" th:text="${post.answer.content}"></textarea>
-    </th:block>
+    <h3>답변</h3>
+    <form method="post" th:action="'/admin/answer/' + ${post.id}">
+        <input type="hidden" th:value="${post.id}" name="postId">
+        <input type="hidden" th:value="${session.admin}" name="adminId">
+        <textarea cols="10" rows="10" style="resize: none; width: 100%" name="content"></textarea>
 
-    <br>
-    <br>
+        <br>
+        <br>
 
-    <a href="/client">목록 페이지</a>
-
-    <br>
-    <br>
-    <br>
-    <br>
+        <div style="display: flex; align-items: center; justify-content: end">
+            <a href="/admin">목록 페이지</a>
+            <button type="submit" style="margin-left: 20px">답변하기</button>
+        </div>
+    </form>
 
 </div>
 

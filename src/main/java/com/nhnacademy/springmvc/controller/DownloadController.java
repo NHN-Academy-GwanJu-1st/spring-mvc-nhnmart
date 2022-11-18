@@ -2,7 +2,6 @@ package com.nhnacademy.springmvc.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -42,12 +40,9 @@ public class DownloadController {
         httpHeaders.setContentDisposition(ContentDisposition.builder("attachment")
                 .filename(filename, StandardCharsets.UTF_8)
                 .build());
-
-
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, mimeType);
         Resource resource = new InputStreamResource(Files.newInputStream(filePath));
 
         return new ResponseEntity<>(resource, httpHeaders, HttpStatus.OK);
-
     }
 }

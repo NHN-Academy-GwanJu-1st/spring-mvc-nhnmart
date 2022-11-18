@@ -1,4 +1,4 @@
-package com.nhnacademy.springmvc.controller;
+package com.nhnacademy.springmvc.controller.client;
 
 import com.nhnacademy.springmvc.domain.Category;
 import com.nhnacademy.springmvc.domain.Post;
@@ -7,19 +7,15 @@ import com.nhnacademy.springmvc.exception.NotAcceptableFileTypeException;
 import com.nhnacademy.springmvc.exception.ValidationFailedException;
 import com.nhnacademy.springmvc.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,8 +44,6 @@ public class PostRegisterController {
     public String doClientRegister(@Valid @ModelAttribute(value = "post") PostRegisterRequest postRequest,
                                    @RequestParam(value = "uploadFiles", required = false) MultipartFile[] uploadFiles,
                                    BindingResult bindingResult) throws IOException {
-
-        log.info("PostRegisterController doClientRegister");
 
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);

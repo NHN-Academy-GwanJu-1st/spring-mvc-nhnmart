@@ -23,9 +23,12 @@ public class Post {
     @Setter
     private List<String> fileList;
 
+    @Setter
     private boolean answerStatus;
 
-    /* TODO #1 파일 업로드 속성 필요 */
+    @Setter
+    private Answer answer;
+
 
     public static Post create(String accountId, String title, Category category, String content) {
         return new Post(accountId, title, category, content);
@@ -39,6 +42,11 @@ public class Post {
         this.registerDate = LocalDateTime.now();
         this.fileList = new ArrayList<>();
         this.answerStatus = false;
+        this.answer = null;
+    }
+
+    public boolean isAnswerStatus() {
+        return this.answerStatus;
     }
 
 }

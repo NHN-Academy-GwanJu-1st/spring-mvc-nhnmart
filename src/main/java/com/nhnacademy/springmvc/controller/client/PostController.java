@@ -1,4 +1,4 @@
-package com.nhnacademy.springmvc.controller;
+package com.nhnacademy.springmvc.controller.client;
 
 import com.nhnacademy.springmvc.domain.Post;
 import com.nhnacademy.springmvc.exception.PostNotFoundException;
@@ -26,7 +26,7 @@ public class PostController {
 
     @GetMapping
     public String clientHome(HttpServletRequest request, Model model) {
-        log.info("PostController clientHome");
+
         HttpSession session = request.getSession();
         String accountId = (String) session.getAttribute("client");
 

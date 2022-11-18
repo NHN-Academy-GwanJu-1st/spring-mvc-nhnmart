@@ -24,7 +24,6 @@ public class LoginController {
         this.accountRepository = accountRepository;
     }
 
-
     @PostMapping("/login")
     public String doLogin(@RequestParam(value = "id") String id,
                         @RequestParam(value = "password") String password,
@@ -42,22 +41,15 @@ public class LoginController {
 
         if (checkAdmin(account)) {
             session.setAttribute("admin", account.getId());
-            return "view/admin/index";
+            return "redirect:/admin";
         }
 
         session.setAttribute("client", account.getId());
-        return "view/client/index";
+        return "redirect:/client";
 
     }
 
     private static boolean checkAdmin(Account account) {
         return account.getRole().equals(Role.Admin);
-    }
-
-    @ExceptionHandler(AccountNotFoundException.class)
-    public String handleAccountNotFound(AccountNotFoundException ex, Model model) {
-        log.error("Call LoginController handleAccountNotFound : {}", ex);
-        model.addAttribute("exception", ex);
-        return "view/error";
     }
 }

@@ -22,8 +22,12 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Map<Long, Post> getAllPosts() {
-        return posts;
+    public List<Post> findAllByAnswerStatusIsFalse() {
+        return posts.entrySet()
+                .stream()
+                .filter(post -> !post.getValue().isAnswerStatus())
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,5 +59,13 @@ public class PostRepositoryImpl implements PostRepository {
 
         posts.put(id, post);
         return post;
+    }
+
+    @Override
+    public List<Post> findAllByCategory(Category category) {
+
+        return findAllByAnswerStatusIsFalse().stream()
+                .filter(post -> post.getCategory().equals(category))
+                .collect(Collectors.toList());
     }
 }
