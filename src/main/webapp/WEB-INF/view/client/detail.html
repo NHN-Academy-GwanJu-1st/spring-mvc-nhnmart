@@ -13,14 +13,14 @@
     <textarea cols="10" rows="30" name="content" th:text="${post.content}" readonly></textarea>
 
     <br>
-
+    <th:block th:if="${#lists.size(post.fileList) != 0}">
     <th:block th:each="files : ${post.fileList}">
         <div style="display: flex; align-items: center">
             <p th:text="${files}"></p>
             <a th:href="${'/download?filename=' + files}">[다운로드]</a>
         </div>
     </th:block>
-
+    </th:block>
     <a href="/client">목록 페이지</a>
 </div>
 

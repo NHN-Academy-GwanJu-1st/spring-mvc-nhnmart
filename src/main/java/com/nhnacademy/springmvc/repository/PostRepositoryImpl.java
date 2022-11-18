@@ -5,6 +5,7 @@ import com.nhnacademy.springmvc.domain.Post;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class PostRepositoryImpl implements PostRepository {
 
@@ -28,6 +29,16 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Post getPost(long postId) {
         return posts.get(postId);
+    }
+
+    @Override
+    public List<Post> findAllByAccountId(String accountId) {
+        return posts.entrySet()
+                .stream()
+                .filter(post -> post.getValue().getAccountId().equals(accountId))
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 
     @Override

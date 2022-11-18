@@ -15,7 +15,7 @@
 </br>
 
 <div>
-    <a href="/client/register">글 작성하기</a>
+    <a href="/client/register">문의하기</a>
 </div>
 
 </br>
@@ -31,17 +31,21 @@
                 <td>제목</td>
                 <td width="120px">분류</td>
                 <td width="200px">등록일</td>
+                <td width="100px">답변 여부</td>
             </tr>
         </thead>
 
         <tbody>
             <th:block th:each="post : ${posts}">
                 <tr>
-                    <td th:text="${post.value.id}"></td>
-                    <td th:text="${post.value.accountId}"></td>
-                    <td th:text="${post.value.title}"></td>
-                    <td th:text="${post.value.category.value}"></td>
-                    <td th:text="${post.value.registerDate}"></td>
+                    <td th:text="${post.id}"></td>
+                    <td th:text="${post.accountId}"></td>
+                    <td>
+                        <a th:text="${post.title}" th:href="'/client/detail/' + ${post.id}"></a>
+                    </td>
+                    <td th:text="${post.category.value}"></td>
+                    <td th:text="${post.registerDate}"></td>
+                    <td th:text="${post.answerStatus} ? '답변 완료' : '답변 대기중'"></td>
                 </tr>
             </th:block>
         </tbody>

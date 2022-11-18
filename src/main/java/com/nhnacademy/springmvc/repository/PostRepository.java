@@ -19,5 +19,7 @@ public interface PostRepository {
 
     Post getPost(long postId);
 
+    List<Post> findAllByAccountId(String accountId);
+
     Post addPost(String accountId, String title, Category category, String content);
 }

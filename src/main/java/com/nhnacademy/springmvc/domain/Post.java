@@ -23,7 +23,7 @@ public class Post {
     @Setter
     private List<String> fileList;
 
-    private boolean answer;
+    private boolean answerStatus;
 
     /* TODO #1 파일 업로드 속성 필요 */
 
@@ -38,7 +38,7 @@ public class Post {
         this.content = content;
         this.registerDate = LocalDateTime.now();
         this.fileList = new ArrayList<>();
-        this.answer = false;
+        this.answerStatus = false;
     }
 
 }

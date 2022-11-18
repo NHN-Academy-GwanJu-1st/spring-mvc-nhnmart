@@ -7,9 +7,10 @@ import com.nhnacademy.springmvc.exception.NotAcceptableFileTypeException;
 import com.nhnacademy.springmvc.exception.ValidationFailedException;
 import com.nhnacademy.springmvc.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,7 @@ import java.util.UUID;
 public class PostRegisterController {
 
     private static String UPLOAD_DIR = "/Users/gwanii/Downloads/";
+
     private static List<String> acceptableFileType =  List.of("image/gif","image/jpg","image/jpeg","image/png");
 
     private final PostRepository postRepository;
@@ -44,7 +46,6 @@ public class PostRegisterController {
     @PostMapping
     public String doClientRegister(@Valid @ModelAttribute(value = "post") PostRegisterRequest postRequest,
                                    @RequestParam(value = "uploadFiles", required = false) MultipartFile[] uploadFiles,
-                                   Model model,
                                    BindingResult bindingResult) throws IOException {
 
         log.info("PostRegisterController doClientRegister");
@@ -55,11 +56,8 @@ public class PostRegisterController {
 
         List<String> fileList = new ArrayList<>();
 
-        for (MultipartFile file : uploadFiles) {
-            fileTypeCheck(file);
-            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-            fileList.add(fileName);
-            file.transferTo(Paths.get(UPLOAD_DIR + fileName));
+        if (!validFileCheck(uploadFiles)) {
+            fileUpload(uploadFiles, fileList);
         }
 
         Post post = postRepository.addPost(
@@ -70,9 +68,27 @@ public class PostRegisterController {
         );
         post.setFileList(fileList);
 
-        model.addAttribute("post", post);
+        return "redirect:/client";
+    }
 
-        return "view/client/detail";
+    private void fileUpload(MultipartFile[] uploadFiles, List<String> fileList) throws IOException {
+        for (MultipartFile file : uploadFiles) {
+            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+            fileList.add(fileName);
+            file.transferTo(Paths.get(UPLOAD_DIR + fileName));
+        }
+    }
+
+    private boolean validFileCheck(MultipartFile[] uploadFiles) {
+        boolean fileEmptyCheck = false;
+        for (MultipartFile file : uploadFiles) {
+            if (file.isEmpty()) {
+                fileEmptyCheck = true;
+            }
+
+            fileTypeCheck(file);
+        }
+        return fileEmptyCheck;
     }
 
     private void fileTypeCheck(MultipartFile file) {
