@@ -2,7 +2,6 @@ package com.nhnacademy.springmvc.repository;
 
 import com.nhnacademy.springmvc.domain.Account;
 import com.nhnacademy.springmvc.domain.Role;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,8 +51,17 @@ class AccountRepositoryImplTest {
     void notExistAccount_getAccount_isNull() {
         assertThat(accountRepository.getAccount("noExistId")).isNull();
     }
-    
-    
+
+    @Test
+    void accurate_accountMatch_isTrue() {
+        assertThat(accountRepository.matches("test", "testPw")).isTrue();
+    }
+
+    @Test
+    void inaccurate_accountMatch_isFalse() {
+        assertThat(accountRepository.matches("test", "1234")).isFalse();
+    }
+
 
 
 
