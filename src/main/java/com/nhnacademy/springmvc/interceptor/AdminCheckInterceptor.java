@@ -14,6 +14,7 @@ public class AdminCheckInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         if (Objects.isNull(session.getAttribute("admin"))) {
             response.sendRedirect("/");
+            return false;
         }
 
         return true;

@@ -17,6 +17,7 @@ public class ClientCheckInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         if (Objects.isNull(session.getAttribute("client"))) {
             response.sendRedirect("/");
+            return false;
         }
         return true;
     }
