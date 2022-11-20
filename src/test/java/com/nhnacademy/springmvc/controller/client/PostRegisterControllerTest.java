@@ -3,7 +3,6 @@ package com.nhnacademy.springmvc.controller.client;
 import com.nhnacademy.springmvc.domain.Category;
 import com.nhnacademy.springmvc.domain.Post;
 import com.nhnacademy.springmvc.exception.NotAcceptableFileTypeException;
-import com.nhnacademy.springmvc.exception.ValidationFailedException;
 import com.nhnacademy.springmvc.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,14 +11,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindException;
-import org.springframework.web.util.NestedServletException;
 
 import java.io.FileInputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
