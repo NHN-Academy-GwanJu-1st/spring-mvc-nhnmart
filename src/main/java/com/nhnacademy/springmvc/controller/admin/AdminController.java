@@ -4,6 +4,7 @@ import com.nhnacademy.springmvc.domain.Answer;
 import com.nhnacademy.springmvc.domain.AnswerRegisterRequest;
 import com.nhnacademy.springmvc.domain.Category;
 import com.nhnacademy.springmvc.domain.Post;
+import com.nhnacademy.springmvc.exception.AlreadyAnswerExistException;
 import com.nhnacademy.springmvc.exception.PostNotFoundException;
 import com.nhnacademy.springmvc.exception.ValidationFailedException;
 import com.nhnacademy.springmvc.repository.AnswerRepository;
@@ -46,7 +47,12 @@ public class AdminController {
             throw new PostNotFoundException();
         }
 
-        model.addAttribute("post", postRepository.getPost(postId));
+        Post post = postRepository.getPost(postId);
+        if (post.isAnswerStatus()) {
+            throw new AlreadyAnswerExistException();
+        }
+
+        model.addAttribute("post", post);
 
         return "view/admin/detail";
     }
